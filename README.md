@@ -1,4 +1,4 @@
-# 🕷️ 蜘蛛 IP 自动识别查询系统
+# 🕷️ GSpider IPLookup 蜘蛛 IP 自动识别查询系统
 
 <div align="center">
 
