@@ -27,14 +27,14 @@
 
 ## ✨ 后台台界面截图
 
-<img width="950" height="482" alt="001" src="https://github.com/user-attachments/assets/b91f8ace-2eaa-4961-bd75-b16c22fee39b" />  
-<img width="950" height="486" alt="002" src="https://github.com/user-attachments/assets/51c0e00e-c029-4322-b12f-90441044b5b3" />  
-<img width="950" height="485" alt="003" src="https://github.com/user-attachments/assets/1daaf06b-cdf4-49fa-94e8-83313525dbef" />  
-<img width="950" height="483" alt="004" src="https://github.com/user-attachments/assets/8d78f4a6-31d5-45dc-9ae4-d145f8564ac9" />  
-<img width="950" height="486" alt="005" src="https://github.com/user-attachments/assets/d8b9dca7-aa64-46c9-a988-9cc8e1ec3c93" />  
-<img width="950" height="483" alt="006" src="https://github.com/user-attachments/assets/2cf5d1bb-5db9-419e-b8ad-0ca64c8a85ab" />  
-<img width="950" height="485" alt="007" src="https://github.com/user-attachments/assets/2e969855-75de-457f-bd72-47280f12fef1" />  
-<img width="950" height="485" alt="008" src="https://github.com/user-attachments/assets/240911ae-b1e8-4a37-ad79-801834f77007" />  
+<img width="1629" height="1050" alt="001" src="https://github.com/user-attachments/assets/31eb2d83-9035-4614-af45-2b282aec365d" />  
+<img width="1632" height="1045" alt="002" src="https://github.com/user-attachments/assets/bafd206a-853e-4353-b58a-a7231d33754e" />  
+<img width="1625" height="1049" alt="003" src="https://github.com/user-attachments/assets/296cb8af-87d8-4853-9aa4-a65ab2242c6a" />  
+<img width="1622" height="1041" alt="004" src="https://github.com/user-attachments/assets/ae942014-acb9-4caa-ab04-bb638b219f9b" />  
+<img width="1621" height="1047" alt="005" src="https://github.com/user-attachments/assets/902cde66-5868-4393-90c5-de65ee95da16" />  
+<img width="1639" height="1046" alt="006" src="https://github.com/user-attachments/assets/0aa53c46-3d6c-4d01-891b-9846b25a8ff1" />  
+<img width="1626" height="1048" alt="007" src="https://github.com/user-attachments/assets/b77c689f-857b-47d0-98be-bbc98c41b109" />  
+<img width="1627" height="1051" alt="008" src="https://github.com/user-attachments/assets/1a11ff49-540b-4e37-8df0-710311624754" />  
 
 ## ✨ 核心功能
 
