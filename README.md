@@ -356,7 +356,10 @@ flowchart TD
 
 ## 👨‍💻 作者
 
-**KPOPD5** — [GitHub](https://github.com/KPOPD5)
+**KPOPD5** — [GitHub](https://github.com/KPOPD5)  
+<img width="700" height="705" alt="20260528-031709" src="https://github.com/user-attachments/assets/d0d66d32-403c-4523-b92d-da3ebbe1060a" />
+
+
 
 ## 🤝 贡献
 
