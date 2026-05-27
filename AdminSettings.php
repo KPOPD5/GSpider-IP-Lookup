@@ -651,7 +651,11 @@ class AdminSettings
         $htaccessContent .= "    RewriteRule ^{$adminDir}($|/) - [R=404,L]\n";
         $htaccessContent .= "</IfModule>\n\n";
         $htaccessContent .= "# 防止目录列表\n";
-        $htaccessContent .= "Options -Indexes\n";
+        $htaccessContent .= "Options -Indexes\n\n";
+        $htaccessContent .= "# 阻止直接访问敏感文件（.admin_path、.env、.git 等）\n";
+        $htaccessContent .= "<FilesMatch \"^\.(admin_path|env|git|htaccess)$\">\n";
+        $htaccessContent .= "    Require all denied\n";
+        $htaccessContent .= "</FilesMatch>\n";
         
         $result = @file_put_contents($htaccessPath, $htaccessContent);
         if ($result === false) {
@@ -676,6 +680,10 @@ class AdminSettings
         $nginxConfig .= "# 使用方法：将以下 location 块添加到 nginx 配置的 server { } 块中\n";
         $nginxConfig .= "# 然后执行: nginx -t && nginx -s reload\n";
         $nginxConfig .= "# ============================================\n\n";
+        $nginxConfig .= "# 阻止直接访问敏感文件（.admin_path、.env、.git 等）\n";
+        $nginxConfig .= "location ~ /\\.(admin_path|env|git|htaccess)\$ {\n";
+        $nginxConfig .= "    return 404;\n";
+        $nginxConfig .= "}\n\n";
         $nginxConfig .= "# 自定义后台路径 \"{$adminPath}\"（物理目录已创建，nginx 可直接访问）\n";
         $nginxConfig .= "# 如需封锁 /{$adminDir}/ 访问，请添加以下配置：\n";
         $nginxConfig .= "location ~ ^/{$adminDir}(\$|/) {\n";
