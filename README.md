@@ -10,14 +10,14 @@
 
 基于 PHP 的搜索引擎蜘蛛（爬虫）IP 自动识别与验证系统，支持**百度、Google、Bing** 等主流搜索引擎蜘蛛的 IP 段匹配、User-Agent 验证和反向 DNS 三重验证，并提供 IP 地理位置查询功能。
 
-作者本人是下图工程师
-<img width="700" height="477" alt="yes" src="https://github.com/user-attachments/assets/a2e8fb3c-7137-4e2a-891d-594e3da3fc55" />
+作者本人是下图工程师  
+<img width="700" height="477" alt="yes" src="https://github.com/user-attachments/assets/a2e8fb3c-7137-4e2a-891d-594e3da3fc55" />  
 全部功能和代码由 DeepSeek 官方api接入Visual Studio Code完成。
 
 <img width="450" height="198" alt="20260528-031042" src="https://github.com/user-attachments/assets/af7b83bb-cd8b-4390-97b9-ec55498e633d" />
 <img width="506" height="252" alt="20260528-031026" src="https://github.com/user-attachments/assets/5f51770b-b770-4805-ba1f-15bcee5cbfc7" />
 
-<img width="200" height="200" alt="19" src="https://github.com/user-attachments/assets/48bb05d8-ae20-497e-9155-ae060f51cf00" />
+<img width="200" height="200" alt="19" src="https://github.com/user-attachments/assets/48bb05d8-ae20-497e-9155-ae060f51cf00" />  
 嘻嘻...
 
 
