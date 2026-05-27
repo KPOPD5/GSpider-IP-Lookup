@@ -230,7 +230,7 @@ Apache 用户无需额外配置，项目内置 PHP 路由层自动处理 URL 重
 php init_db.php
 ```
 
-> 初始化完成后，系统会自动创建一个随机密码的 `admin` 账户，密码会输出到 PHP 错误日志中。请登录后台后立即修改！
+> 初始化完成后，请访问 https://你的域名/reset_admin.php 重置获取管理密码，请登录后台立即修改！
 
 ### 6. 配置后台管理
 
@@ -379,5 +379,3 @@ flowchart TD
 欢迎提交 [Issue](https://github.com/KPOPD5/GSpider-IP-Lookup/issues) 或 [Pull Request](https://github.com/KPOPD5/GSpider-IP-Lookup/pulls)！
 
 ---
-
-> 💡 **提示**: 部署后请访问 https://你的域名/reset_admin.php 重置管理密码，后台管理员登录后，建议先在后台「系统设置」中完成初始配置，并修改默认管理员密码。
