@@ -35,11 +35,28 @@ try {
             ip_end_num INTEGER DEFAULT 0,
             spider_type TEXT DEFAULT 'Baiduspider',
             source TEXT DEFAULT 'manual',
+            confidence TEXT DEFAULT '',
             is_active INTEGER DEFAULT 1,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ");
+    
+    // 兼容旧数据库：补充可能缺失的列
+    $existingCols = [];
+    $colQuery = $db->query("SELECT name FROM pragma_table_info('spider_ranges')");
+    while ($col = $colQuery->fetchArray(SQLITE3_ASSOC)) {
+        $existingCols[] = $col['name'];
+    }
+    if (!in_array('confidence', $existingCols)) {
+        $db->exec("ALTER TABLE spider_ranges ADD COLUMN confidence TEXT DEFAULT ''");
+    }
+    if (!in_array('ip_start_num', $existingCols)) {
+        $db->exec("ALTER TABLE spider_ranges ADD COLUMN ip_start_num INTEGER DEFAULT 0");
+    }
+    if (!in_array('ip_end_num', $existingCols)) {
+        $db->exec("ALTER TABLE spider_ranges ADD COLUMN ip_end_num INTEGER DEFAULT 0");
+    }
     
     // 创建索引
     $db->exec("CREATE INDEX IF NOT EXISTS idx_ip_range ON spider_ranges(ip_range)");

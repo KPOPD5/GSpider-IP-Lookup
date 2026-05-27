@@ -36,12 +36,24 @@ class SpiderChecker
     private function ensureNumericIPColumns(): void
     {
         try {
-            $cols = $this->db->querySingle("SELECT COUNT(*) FROM pragma_table_info('spider_ranges') WHERE name = 'ip_start_num'");
-            if ((int)$cols === 0) {
+            // 获取已存在的列
+            $existingCols = [];
+            $colQuery = $this->db->query("SELECT name FROM pragma_table_info('spider_ranges')");
+            while ($col = $colQuery->fetchArray(SQLITE3_ASSOC)) {
+                $existingCols[] = $col['name'];
+            }
+            
+            // 补充缺失的 confidence 列
+            if (!in_array('confidence', $existingCols)) {
+                $this->db->exec("ALTER TABLE spider_ranges ADD COLUMN confidence TEXT DEFAULT ''");
+            }
+            
+            // 补充缺失的数值列
+            if (!in_array('ip_start_num', $existingCols)) {
                 $this->db->exec("ALTER TABLE spider_ranges ADD COLUMN ip_start_num INTEGER DEFAULT 0");
                 $this->db->exec("ALTER TABLE spider_ranges ADD COLUMN ip_end_num INTEGER DEFAULT 0");
                 // PHP 侧回填现有数据的数值列
-                $rows = $this->db->query("SELECT id, ip_start, ip_end FROM spider_ranges WHERE ip_start_num = 0");
+                $rows = $this->db->query("SELECT id, ip_start, ip_end FROM spider_ranges WHERE ip_start_num = 0 OR ip_start_num IS NULL");
                 $update = $this->db->prepare("UPDATE spider_ranges SET ip_start_num = :sn, ip_end_num = :en WHERE id = :id");
                 while ($row = $rows->fetchArray(SQLITE3_ASSOC)) {
                     $startNum = ip2long($row['ip_start']) ?: 0;
