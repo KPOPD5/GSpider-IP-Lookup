@@ -213,6 +213,7 @@ server {
     }
 
     # 安全：禁止访问敏感文件
+    location ~ /\.(admin_path|env|git|htaccess)$ { return 404; }
     location ~ /\. { deny all; }
     location ~ /(db|geoip)/.*\.(sqlite|mmdb|bin|json)$ { deny all; }
 }
