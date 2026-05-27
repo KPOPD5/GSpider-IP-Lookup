@@ -660,10 +660,19 @@ class GeoIPLookup
                 copy($this->dbPath, $this->dbPath . '.bak');
             }
             
-            // 移动新数据库到目标位置
-            if (!rename($mmdbFile, $this->dbPath)) {
-                $result['message'] = '无法移动数据库文件到目标位置';
-                return $result;
+            // 确保目标目录存在
+            $geoipDir = dirname($this->dbPath);
+            if (!is_dir($geoipDir)) {
+                mkdir($geoipDir, 0755, true);
+            }
+            
+            // 移动新数据库到目标位置（优先 rename，失败则 copy+unlink）
+            if (!@rename($mmdbFile, $this->dbPath)) {
+                if (!@copy($mmdbFile, $this->dbPath)) {
+                    $result['message'] = '无法移动数据库文件到目标位置（权限不足或磁盘空间不足）';
+                    return $result;
+                }
+                @unlink($mmdbFile);
             }
             
             $result['success'] = true;
