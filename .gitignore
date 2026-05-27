@@ -1,0 +1,61 @@
+# 环境变量（含密钥）
+.env
+
+# 备份文件
+*.bak
+*.backup
+geoip/*.bak
+
+# 数据库文件（本地数据）
+db/*.sqlite
+db/*.sqlite-wal
+db/*.sqlite-shm
+
+# 自动生成的服务器配置文件
+.htaccess
+nginx-admin-route.conf
+.admin_path
+
+# 自动生成的自定义后台路径目录（如修改了 admin_path，请将对应目录加入忽略）
+# 以下为常见自定义后台路径，根据实际情况取消注释
+# guPEid/
+# my-secret-admin/
+
+# GeoIP 数据库（大型二进制文件，应自行下载）
+geoip/*.mmdb
+geoip/*.BIN
+geoip/*.bin
+
+# 缓存文件
+db/*.json
+*.cache
+
+# Composer（依赖包，通过 composer install 安装）
+vendor/
+
+# 操作系统文件
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# IDE / 编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# 日志文件
+*.log
+error_log
+access_log
+
+# 临时文件
+tmp/
+temp/
+*.tmp

@@ -1,0 +1,296 @@
+/* ============================================
+   Google 蜘蛛 IP 段查询页面 - 专属样式
+   ============================================ */
+
+.header {
+    background: linear-gradient(135deg, var(--primary), #6d28d9);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.header p {
+    opacity: 0.85;
+    margin-top: 6px;
+    font-size: 0.9rem;
+}
+
+/* 统计网格 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    min-height: 72px;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* 更新日志卡片 */
+.update-log-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 12px 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    font-size: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+}
+
+.update-log-card .log-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+}
+
+.update-log-card .log-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    flex-shrink: 0;
+}
+
+.update-log-card .log-val {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.update-log-card .log-sep {
+    color: var(--border);
+}
+
+/* 工具栏 */
+.toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    justify-content: center;
+}
+
+.toolbar a,
+.toolbar .btn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text);
+    font-size: 0.82rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: inherit;
+    box-shadow: var(--shadow);
+}
+
+.toolbar a:hover,
+.toolbar .btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.toolbar a.active,
+.toolbar .btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+/* 搜索框 */
+.search-wrap {
+    position: relative;
+    max-width: 440px;
+    margin: 0 auto 14px;
+}
+
+.search-wrap input {
+    width: 100%;
+    padding: 10px 80px 10px 16px;
+    border-radius: 22px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text);
+    font-size: 0.88rem;
+    outline: none;
+    box-shadow: var(--shadow);
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.search-wrap input:focus {
+    border-color: var(--primary);
+}
+
+.search-wrap button {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* 数据源选项卡 */
+.source-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.source-tab {
+    padding: 6px 14px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.source-tab:hover {
+    color: var(--text);
+    border-color: var(--primary);
+}
+
+.source-tab.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+/* IP 表格 */
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+}
+
+.card-header h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.card-header .badge {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.ip-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ip-table thead {
+    background: #f9fafb;
+}
+
+.ip-table th {
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+}
+
+.ip-table td {
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.84rem;
+}
+
+.ip-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.ip-addr {
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+.ip-type {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.copy-btn {
+    background: var(--border);
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-family: inherit;
+    transition: all 0.15s;
+}
+
+.copy-btn:hover {
+    color: #fff;
+    background: var(--primary);
+}
+
+@media (max-width: 640px) {
+    .header { padding: 20px; }
+    .header h1 { font-size: 1.2rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .ip-table th,
+    .ip-table td { padding: 7px 10px; font-size: 0.78rem; }
+}

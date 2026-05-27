@@ -1,0 +1,142 @@
+/* ============================================
+   已确认百度蜘蛛列表页 - 专属样式
+   ============================================ */
+
+.header {
+    background: linear-gradient(135deg, var(--accent), #6d28d9);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 24px 32px;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 1.4rem;
+}
+
+.header p {
+    opacity: 0.85;
+    margin-top: 4px;
+    font-size: 0.9rem;
+}
+
+/* 统计计数栏 */
+.count-bar {
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    box-shadow: var(--shadow);
+}
+
+.count-bar strong {
+    color: var(--accent);
+    font-size: 1.2rem;
+}
+
+/* IP 列表 */
+.ip-list {
+    background: var(--card-bg);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+}
+
+.ip-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: #f3f4f6;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    gap: 12px;
+    border-bottom: 2px solid var(--border);
+    min-width: 800px;
+    white-space: nowrap;
+}
+
+.ip-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.9rem;
+    gap: 12px;
+    min-width: 800px;
+    white-space: nowrap;
+}
+
+.ip-row:last-child {
+    border-bottom: none;
+}
+
+.ip-row:hover {
+    background: #f9fafb;
+}
+
+/* 列宽 */
+.col-ip { min-width: 140px; flex-shrink: 0; }
+.col-type { min-width: 100px; flex-shrink: 0; }
+.col-conf { min-width: 55px; flex-shrink: 0; }
+.col-method { min-width: 85px; flex-shrink: 0; }
+.col-rdns { min-width: 180px; flex: 1; max-width: 280px; }
+.col-meta { min-width: 145px; flex-shrink: 0; text-align: right; }
+
+.ip-addr {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--text);
+    min-width: 140px;
+}
+
+.ip-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badge-spider { background: #fef3c7; color: #b45309; }
+.badge-conf { font-weight: 700; }
+.badge-conf-verified { background: #d1fae5; color: #065f46; }
+.badge-conf-high     { background: #dbeafe; color: #1e40af; }
+.badge-conf-medium   { background: #fef3c7; color: #92400e; }
+.badge-conf-low      { background: #fee2e2; color: #991b1b; }
+.badge-method { background: #e0e7ff; color: #4338ca; }
+
+.ip-meta {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+.ip-meta small {
+    font-size: 0.75rem;
+}
+
+.rdns {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .container { padding: 12px; }
+    .header { padding: 16px 20px; }
+    .ip-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    .ip-meta { margin-left: 0; }
+    .rdns { max-width: 100%; }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "kop5/gspider-ip-lookup",
+    "description": "基于 PHP 的搜索引擎蜘蛛（爬虫）IP 自动识别与验证系统，支持百度、Google、Bing 等主流搜索引擎蜘蛛的 IP 段匹配、User-Agent 验证和反向 DNS 三重验证，并提供 IP 地理位置查询功能。",
+    "type": "project",
+    "license": "MIT",
+    "homepage": "https://github.com/KOP5/GSpider-IP-Lookup",
+    "support": {
+        "issues": "https://github.com/KOP5/GSpider-IP-Lookup/issues",
+        "source": "https://github.com/KOP5/GSpider-IP-Lookup"
+    },
+    "require": {
+        "php": ">=7.4",
+        "geoip2/geoip2": "^2.13",
+        "ext-curl": "*",
+        "ext-sqlite3": "*",
+        "ext-zip": "*",
+        "ext-gmp": "*",
+        "ip2location/ip2location-php": "^9.8"
+    },
+    "autoload": {
+        "classmap": [
+            "SpiderChecker.php",
+            "GeoIPLookup.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
