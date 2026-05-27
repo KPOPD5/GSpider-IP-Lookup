@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-%3E%3D7.4-777BB4?logo=php)](composer.json)
-[![GitHub](https://img.shields.io/badge/GitHub-KOP5/GSpider--IP--Lookup-181717?logo=github)](https://github.com/KOP5/GSpider-IP-Lookup)
+[![GitHub](https://img.shields.io/badge/GitHub-KPOPD5/GSpider--IP--Lookup-181717?logo=github)](https://github.com/KPOPD5/GSpider-IP-Lookup)
 
 </div>
 
@@ -343,11 +343,11 @@ flowchart TD
 
 ## 👨‍💻 作者
 
-**KOP5** — [GitHub](https://github.com/KOP5)
+**KPOPD5** — [GitHub](https://github.com/KPOPD5)
 
 ## 🤝 贡献
 
-欢迎提交 [Issue](https://github.com/KOP5/GSpider-IP-Lookup/issues) 或 [Pull Request](https://github.com/KOP5/GSpider-IP-Lookup/pulls)！
+欢迎提交 [Issue](https://github.com/KPOPD5/GSpider-IP-Lookup/issues) 或 [Pull Request](https://github.com/KPOPD5/GSpider-IP-Lookup/pulls)！
 
 ---
 
