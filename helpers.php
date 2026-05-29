@@ -75,7 +75,8 @@ function csrfField(): string
 
 /**
  * IP 查询速率限制检查
- * 基于 Session 记录最近查询时间戳，超过限制则拒绝
+ * 双重防护：Session 级别 + IP 级别兜底
+ * 即使攻击者清除 Cookie，IP 级别限制仍会生效
  * @param int $maxPerMinute 每分钟最大查询次数（从后台设置读取）
  * @return string|null 返回错误消息表示被限制，null 表示通过
  */
@@ -86,6 +87,7 @@ function checkRateLimit(int $maxPerMinute = 30): ?string
     $now = time();
     $window = 60; // 1 分钟窗口
     
+    // ============ 第1层：Session 级别速率限制 ============
     if (!isset($_SESSION['rate_limit_timestamps'])) {
         $_SESSION['rate_limit_timestamps'] = [];
     }
@@ -99,17 +101,74 @@ function checkRateLimit(int $maxPerMinute = 30): ?string
     // 重新索引
     $_SESSION['rate_limit_timestamps'] = array_values($_SESSION['rate_limit_timestamps']);
     
-    // 检查是否超限
+    // 检查 Session 级别
     if (count($_SESSION['rate_limit_timestamps']) >= $maxPerMinute) {
         $oldest = $_SESSION['rate_limit_timestamps'][0];
         $waitSeconds = $window - ($now - $oldest);
         return "查询过于频繁，请 {$waitSeconds} 秒后再试（限制：{$maxPerMinute} 次/分钟）";
     }
     
-    // 记录本次查询时间
+    // ============ 第2层：IP 级别速率限制（防 Cookie 清除绕过） ============
+    $ipError = checkIPRateLimit($maxPerMinute);
+    if ($ipError !== null) {
+        return $ipError;
+    }
+    
+    // 两层都通过，记录本次查询时间
     $_SESSION['rate_limit_timestamps'][] = $now;
     
     return null; // 通过
+}
+
+/**
+ * IP 级别速率限制检查
+ * 使用基于文件系统的计数器作为 Session 级别限制的兜底
+ * @param int $maxPerMinute 每分钟最大查询次数
+ * @return string|null
+ */
+function checkIPRateLimit(int $maxPerMinute): ?string
+{
+    $now = time();
+    $window = 60;
+    
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    // 使用 hash 防止 IP 泄露在日志中
+    $ipHash = md5($ip . 'rate_limit_salt_v1');
+    $cacheDir = __DIR__ . '/db/rate_limit/';
+    
+    // 确保目录存在
+    if (!is_dir($cacheDir)) {
+        @mkdir($cacheDir, 0755, true);
+    }
+    
+    $file = $cacheDir . $ipHash . '.json';
+    $data = ['timestamps' => []];
+    
+    if (file_exists($file)) {
+        $content = @file_get_contents($file);
+        if ($content !== false) {
+            $data = json_decode($content, true) ?: ['timestamps' => []];
+        }
+    }
+    
+    // 清理过期记录
+    $data['timestamps'] = array_filter($data['timestamps'], fn($t) => ($now - $t) < $window);
+    $data['timestamps'] = array_values($data['timestamps']);
+    
+    // 检查是否超限
+    if (count($data['timestamps']) >= max($maxPerMinute, 60)) {
+        $oldest = $data['timestamps'][0];
+        $waitSeconds = $window - ($now - $oldest);
+        return "查询过于频繁，请 {$waitSeconds} 秒后再试（IP限制：{$maxPerMinute} 次/分钟）";
+    }
+    
+    // 记录本次请求
+    $data['timestamps'][] = $now;
+    // 自动清理：仅保留最近2分钟的数据
+    $data['timestamps'] = array_filter($data['timestamps'], fn($t) => ($now - $t) < 120);
+    file_put_contents($file, json_encode($data), LOCK_EX);
+    
+    return null;
 }
 
 /**

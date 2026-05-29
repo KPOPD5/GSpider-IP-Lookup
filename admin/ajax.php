@@ -34,8 +34,9 @@ $contentType = $_SERVER['CONTENT_TYPE'] ?? $_SERVER['HTTP_CONTENT_TYPE'] ?? '';
 $rawBody = ($_SERVER['REQUEST_METHOD'] !== 'GET') ? file_get_contents('php://input') : '';
 $jsonInput = [];
 
-// 尝试解析 JSON body（无论 Content-Type 是否声明，只要内容是合法 JSON 就解析）
-if ($rawBody !== '' && $rawBody !== false) {
+// 仅在 Content-Type 为 application/json 时解析 JSON body
+$isJsonRequest = (stripos($contentType, 'application/json') !== false);
+if ($isJsonRequest && $rawBody !== '' && $rawBody !== false) {
     $decoded = json_decode($rawBody, true);
     if (is_array($decoded)) {
         $jsonInput = $decoded;

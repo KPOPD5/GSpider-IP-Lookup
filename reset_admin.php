@@ -2,15 +2,46 @@
 /**
  * 管理员密码重置工具
  * 
- * 使用方法（二选一）：
+ * 安全限制：
+ * - 命令行模式（CLI）：直接使用
+ * - 浏览器模式：仅允许本地访问 (127.0.0.1 / ::1)
+ * - 禁止从远程网络通过浏览器访问
+ * 
+ * 使用方法：
  * 1. 命令行：php reset_admin.php
- * 2. 浏览器：访问 https://你的域名/reset_admin.php
+ * 2. 命令行设置自定义密码：SET ADMIN_RESET_PASSWORD=myPass123 && php reset_admin.php
+ * 3. 浏览器：仅限 http://127.0.0.1/reset_admin.php 访问
  * 
  * 使用后请立即删除此文件！
  */
 
-// 要设置的密码（修改引号内的文字即可）
-$newPassword = 'admin888';
+// ============================================
+// 访问控制：仅允许 CLI 或本地浏览器访问
+// ============================================
+$isCLI = (php_sapi_name() === 'cli');
+if (!$isCLI) {
+    $remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '';
+    $allowedLocal = ['127.0.0.1', '::1', 'localhost'];
+    if (!in_array($remoteAddr, $allowedLocal, true)) {
+        http_response_code(403);
+        header('Content-Type: text/plain; charset=utf-8');
+        die("❌ 禁止访问：此脚本仅允许通过命令行（CLI）或本地浏览器（127.0.0.1）访问。\n"
+          . "   请通过 SSH 执行：php reset_admin.php\n"
+          . "   或设置环境变量 ADMIN_RESET_PASSWORD 后执行。\n");
+    }
+}
+
+// 要设置的密码（优先级：环境变量 > 自动生成）
+// 用法：SET ADMIN_RESET_PASSWORD=你的密码 && php reset_admin.php
+$newPassword = '';
+if (function_exists('getenv')) {
+    $newPassword = getenv('ADMIN_RESET_PASSWORD') ?: '';
+}
+if (empty($newPassword)) {
+    // 自动生成一个强随机密码
+    $newPassword = substr(bin2hex(random_bytes(12)), 0, 16);
+    echo "⚠️  未设置 ADMIN_RESET_PASSWORD 环境变量，已自动生成随机密码。\n\n";
+}
 
 // ====== 以下代码请勿修改 ======
 

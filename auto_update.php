@@ -128,7 +128,7 @@ function runInBackground(string $script): void
     
     $phpBin = PHP_BINARY ?: 'php';
     
-    // 仅使用 popen 方式后台执行（已移除 SSRF 风险的 fsockopen 回退方案）
+    // 优先级1: 使用 popen（兼容性好）
     if (function_exists('popen')) {
         if (stripos(PHP_OS, 'WIN') === 0) {
             // Windows: 使用 start /B 后台运行，路径用引号包裹
@@ -140,10 +140,35 @@ function runInBackground(string $script): void
         $handle = @popen($cmd, 'r');
         if ($handle) {
             pclose($handle);
+            return;
         }
-        return;
+    }
+    
+    // 优先级2: 使用 proc_open（更可靠的后台进程启动方式）
+    if (function_exists('proc_open')) {
+        $descriptorspec = [
+            0 => ['pipe', 'r'],
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ];
+        $process = @proc_open(
+            escapeshellarg($phpBin) . ' ' . escapeshellarg($script),
+            $descriptorspec,
+            $pipes,
+            null,
+            null,
+            ['bypass_shell' => true]
+        );
+        if (is_resource($process)) {
+            // 关闭所有管道以释放资源，进程继续后台运行
+            foreach ($pipes as $pipe) {
+                if (is_resource($pipe)) fclose($pipe);
+            }
+            proc_close($process);
+            return;
+        }
     }
     
     // 回退：无法执行后台任务，记录日志
-    error_log("[auto_update] Cannot run background task: popen() not available, script={$script}");
+    error_log("[auto_update] Cannot run background task: neither popen() nor proc_open() available, script={$script}");
 }

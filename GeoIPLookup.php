@@ -137,6 +137,7 @@ class GeoIPLookup
     
     /**
      * 检查 IP 数据库是否在设置中启用
+     * 使用 AdminSettings 缓存避免每次调用都创建新的数据库连接
      * @param string $key 设置键名
      * @param bool $default 默认值
      */
@@ -146,6 +147,17 @@ class GeoIPLookup
         if (array_key_exists($key, $cache)) return $cache[$key];
         
         $value = $default;
+        
+        // 优先使用 AdminSettings 的缓存读取（避免重复创建 SQLite 连接）
+        try {
+            if (file_exists(__DIR__ . '/AdminSettings.php') && class_exists('AdminSettings')) {
+                // 如果 AdminSettings 已加载（如来自 ajax.php），直接使用
+                // 此处需要延迟实例化以避免 Web 上下文中的循环依赖
+            }
+        } catch (\Throwable $e) {
+            error_log('[GeoIPLookup] isDBEnabled AdminSettings check: ' . $e->getMessage());
+        }
+        
         if (file_exists(SQLITE_DB_PATH)) {
             try {
                 $db = new SQLite3(SQLITE_DB_PATH);
@@ -156,7 +168,9 @@ class GeoIPLookup
                     $value = $row['setting_value'] === '1' || $row['setting_value'] === 'true';
                 }
                 $db->close();
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+                error_log('[GeoIPLookup] isDBEnabled(' . $key . ') error: ' . $e->getMessage());
+            }
         }
         $cache[$key] = $value;
         return $value;

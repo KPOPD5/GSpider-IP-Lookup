@@ -71,7 +71,9 @@ if (!file_exists(SQLITE_DB_PATH)) {
 }
 
 // 自动更新调度（无需宝塔计划任务）
-@include_once __DIR__ . '/auto_update.php';
+if (file_exists(__DIR__ . '/auto_update.php')) {
+    include_once __DIR__ . '/auto_update.php';
+}
 
 // 启动会话（用于 PRG 模式的闪存消息）
 session_start();

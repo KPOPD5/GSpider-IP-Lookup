@@ -6,7 +6,9 @@
 require_once __DIR__ . '/config.php';
 
 // 自动更新调度（无缓存时自动拉取一次）
-@include_once __DIR__ . '/auto_update.php';
+if (file_exists(__DIR__ . '/auto_update.php')) {
+    include_once __DIR__ . '/auto_update.php';
+}
 
 /**
  * 判断 IP 是否落在 CIDR 范围内（支持 IPv4 和 IPv6）
@@ -69,7 +71,9 @@ $isStale = $cacheAge > 604800; // 超过7天提示
 
 // 首次安装时自动获取一次
 if (empty($allData)) {
-    @include_once __DIR__ . '/update_google_spiders.php';
+    if (file_exists(__DIR__ . '/update_google_spiders.php')) {
+        include_once __DIR__ . '/update_google_spiders.php';
+    }
     if (file_exists($cacheFile)) {
         $cached = json_decode(file_get_contents($cacheFile), true);
         if (is_array($cached)) $allData = $cached;

@@ -13,7 +13,9 @@ if (!file_exists(SQLITE_DB_PATH)) {
 }
 
 // 自动更新调度
-@include_once __DIR__ . '/auto_update.php';
+if (file_exists(__DIR__ . '/auto_update.php')) {
+    include_once __DIR__ . '/auto_update.php';
+}
 
 $checker = new SpiderChecker();
 try {
